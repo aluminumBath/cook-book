@@ -1,0 +1,10 @@
+export const GET_AGGREGATIONS_REQUEST = 'app/elasticsearch/GET_AGGREGATIONS_REQUEST';
+export const GET_AGGREGATIONS_SUCCESS = 'app/elasticsearch/GET_AGGREGATIONS_SUCCESS';
+export const GET_AGGREGATIONS_FAILURE = 'app/elasticsearch/GET_AGGREGATIONS_FAILURE';
+export const UPDATE_SEARCH_BAR_VALUE = 'app/elasticsearch/UPDATE_SEARCH_BAR_VALUE';
+export const GET_ELASTICSEARCH_QUERY_REQUEST = 'app/elasticsearch/GET_ELASTICSEARCH_QUERY_REQUEST';
+export const GET_ELASTICSEARCH_QUERY_SUCCESS = 'app/elasticsearch/GET_ELASTICSEARCH_QUERY_SUCCESS';
+export const GET_ELASTICSEARCH_QUERY_FAILURE = 'app/elasticsearch/GET_ELASTICSEARCH_QUERY_FAILURE';
+export const UPDATE_FIRST_DOC = 'app/elasticsearch/UPDATE_FIRST_DOC';
+export const UPDATE_PAGE_SIZE = 'app/elasticsearch/UPDATE_PAGE_SIZE';
+export const SET_AGGREGATIONS = 'app/elasticsearch/SET_AGGREGATIONS';

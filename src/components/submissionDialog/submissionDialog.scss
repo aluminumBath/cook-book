@@ -1,0 +1,104 @@
+.submission_dialog {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .bp3-dialog-header {
+    display: flex;
+    width: 100%;
+  }
+  .new-recipe {
+    display: flex;
+    width: 95%;
+    height: 95%;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 3%;
+    .section {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      margin: 1%;
+      flex-direction: column;
+      .label {
+        display: flex;
+        width: 30%;
+        font-weight: bold;
+      }
+      .value {
+        display: flex;
+        width: 65%;
+      }
+      .new-ingredient, .new-instruction, .new-tag, .new-note, .new-author {
+        display: flex;
+        width: 95%;
+        height: 95%;
+        margin: 2.5%;
+        flex-direction: column;
+        .subsection {
+          display: flex;
+          margin: 2px;
+          justify-content: space-around;
+        }
+      }
+      .ingredients, .instructions, .tags, .notes, .author {
+        flex-direction: column;
+        .ingredient, .instruction, .note, .author {
+          display: inline-flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          width: 100%;
+          .ingr-group {
+            display: inline-flex;
+            align-items: center;
+            width: 100%;
+            .amount, .title {
+              display: flex;
+              justify-content: space-around;
+              align-items: center;
+              width: unset;
+              height: unset;
+              font-weight: bold;
+              padding-top: 0px;
+            }
+            .title {
+              margin-left: 5px;
+            }
+            .delete-button {
+              margin-right: 5px;
+            }
+          }
+          .note {
+            display: flex;
+            width: 100%;
+            padding-left: 5%;
+            padding-right: 5%;
+            flex-wrap: wrap;
+            font-style: italic;
+          }
+        }
+        .tag {
+          margin: 5px;
+          width: fit-content;
+        }
+        .tags {
+          flex-wrap: wrap;
+          flex-direction: column;
+        }
+      }
+      .tags {
+        flex-wrap: wrap;
+        flex-direction: column;
+      }
+      .new-ingredient-button, .new-instruction-button, .new-tag-button, .new-note-button, .new-author-button {
+        display: flex;
+        width: fit-content;
+        margin-top: 3%;
+        margin-left: 5%;
+      }
+    }
+    .recipe-buttons {
+      flex-direction: row;
+      justify-content: space-around;
+    }
+  }
+}

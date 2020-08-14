@@ -1,0 +1,173 @@
+.cookApp_Recipe_Card_Full {
+  display: flex;
+  max-height: 100%;
+  width: 40%;
+  justify-content: center;
+  text-align: center;
+  margin-right: 5px;
+  margin-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  flex-direction: column;
+  overflow-y: auto;
+  .picture, .tags, .authors, .title, .ingredients, .instructions, .notes {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .picture {
+    img {
+      max-width: 25%;
+      max-height: 25%;
+    }
+  }
+  .title {
+    padding-top: 10px;
+  }
+  .tags, .authors {
+    flex-wrap: wrap;
+    padding: 3px;
+    .tag {
+      margin: 5px;
+    }
+    .title {
+      padding-top: 0px;
+      margin: 0px;
+    }
+  }
+  .ingredients {
+    flex-direction: column;
+    .ingredient {
+      display: inline-flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      width: 100%;
+      .ingr-group {
+        display: inline-flex;
+        width: 100%;
+        .amount, .title {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          width: unset;
+          height: unset;
+          font-weight: bold;
+          padding-top: 0px;
+        }
+        .title {
+          margin-left: 5px;
+        }
+      }
+      .note {
+        display: flex;
+        width: 100%;
+        padding-left: 5%;
+        padding-right: 5%;
+        flex-wrap: wrap;
+        font-style: italic;
+      }
+    }
+  }
+  .instructions, .notes {
+    flex-direction: column;
+    .step, .note {
+      display: inline-flex;
+      width: 100%;
+      flex-wrap: wrap;
+      text-align: initial;
+      align-items: center;
+    }
+  }
+}
+
+.print-sect {
+  display: none;
+}
+#printOnly {
+  display: none;
+}
+@media print {
+  .print {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-right: 5px;
+    margin-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    flex-direction: column;
+    overflow-y: auto;
+    .picture {
+      height: fit-content;
+      align-items: center;
+      img {
+        width: 300px;
+        height: 300px;
+      }
+    }
+    .picture, .tags, .authors, .title, .ingredients, .instructions, .notes {
+      flex-direction: column;
+      display: flex;
+      width: 100%;
+      justify-content: space-around;
+    }
+    .tags, .authors {
+      flex-direction: row;
+      padding: 3px;
+      .title {
+        padding-top: 0px;
+        margin: 0px;
+      }
+    }
+    .title {
+      text-align: center;
+    }
+    .ingredients {
+      flex-direction: column;
+      .ingredient {
+        display: inline-flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: 100%;
+        .ingr-group {
+          display: inline-flex;
+          width: 100%;
+          .amount, .title {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: unset;
+            height: unset;
+            font-weight: bold;
+            padding-top: 0px;
+          }
+          .title {
+            margin-left: 5px;
+          }
+        }
+        .note {
+          display: flex;
+          width: 100%;
+          padding-left: 5%;
+          padding-right: 5%;
+          flex-wrap: wrap;
+          font-style: italic;
+        }
+      }
+    }
+    .instructions, .notes {
+      flex-direction: column;
+      .step, .note {
+        display: inline-flex;
+        width: 100%;
+        flex-wrap: wrap;
+        text-align: initial;
+        align-items: center;
+      }
+    }
+  }
+  #noPrint {
+    display: none;
+  }
+}

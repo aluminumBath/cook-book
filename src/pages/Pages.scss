@@ -1,0 +1,139 @@
+.cookApp_Home_Page {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  .cookApp_row_left, .cookApp_row_right {
+    display: flex;
+    width: 15%;
+    height: 100%;
+    padding: 4px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .submission_section {
+      display: flex;
+      width: 100%;
+      height: 20%;
+      align-items: center;
+      justify-content: center;
+    }
+    .bp3-divider {
+      display: flex;
+      width: 100%;
+    }
+  }
+  .cookApp_row_right {
+    justify-content: space-around;
+  }
+  .cookApp_row_center {
+    display: flex;
+    width: 70%;
+    height: 100%;
+    padding: 4px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .header-row {
+      display: flex;
+      width: 100%;
+      margin-top: 5px;
+      .pages {
+        display: flex;
+        width: 95%;
+        justify-content: space-around;
+      }
+    }
+  }
+}
+.cookApp_scrollable {
+  height: 600px;
+  overflow-y: scroll;
+}
+
+.cookApp_Login_Page, .cookApp_Signup_Page {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  .login {
+    display: flex;
+    width: 45%;
+    height: 40%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    .form {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: space-around;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      .email, .password, .signin {
+        display: flex;
+        width: 95%;
+        .label {
+          width: 20%;
+        }
+        .value {
+          width: 75%;
+        }
+      }
+    }
+  }
+  .create {
+    display: flex;
+    width: 45%;
+    height: 20%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+.cookApp_Signup_Page {
+  .login {
+    width: 45%;
+    height: 20%;
+  }
+  .signup {
+    width: 45%;
+    height: 40%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    .form {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: space-around;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      .email, .password, .signin, .first, .last {
+        display: flex;
+        width: 95%;
+        .label {
+          width: 20%;
+        }
+        .value {
+          width: 75%;
+        }
+      }
+    }
+    .logo-pic {
+      display: flex;
+      width: 33%;
+      padding-left: 48%;
+    }
+  }
+}

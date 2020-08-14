@@ -1,0 +1,28 @@
+.cookApp_Aggregations {
+    display: flex;
+    width: 100%;
+    height: 50%;
+    flex-direction: column;
+    h3 {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+    }
+    .aggregations {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      height: 100%;
+      justify-content: space-between;
+      .bp3-tag {
+        display: flex;
+        width: fit-content;
+        height: fit-content;
+        margin: 5px;
+        min-width: 20%;
+        .bp3-fill {
+          text-align: center;
+        }
+      }
+    }
+  }

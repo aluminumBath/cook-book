@@ -1,0 +1,11 @@
+.cookApp_Login {
+  display: flex;
+  width: fit-content;
+  margin: 10px;
+  .title {
+    display: flex;
+    margin: 5px;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

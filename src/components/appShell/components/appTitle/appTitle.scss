@@ -1,0 +1,14 @@
+.cookApp_App_Title {
+  display: flex;
+  width: fit-content;
+  margin: 10px;
+  justify-content: space-between;
+  align-items: center;
+  .title, .bp3-icon {
+    display: flex;
+    margin: 5px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: xx-large;
+  }
+}
