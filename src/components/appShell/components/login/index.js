@@ -9,7 +9,7 @@ import './login.scss';
 class Login extends Component {
   constructor(props) {
     super(props);
-    props.dispatch(userOperations.getUserInfo());
+    props.dispatch(userOperations.loginUser());
   }
 
   render() {
