@@ -38,6 +38,7 @@ export async function queryEs(qVal, pageSize) {
     }),
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(externalConfig.endpoints.esEndpointUserName + ':' + externalConfig.endpoints.esEndpointPassword),
     },
   });
 
@@ -71,11 +72,14 @@ export async function getRecipes(q, from = 0, size = externalConfig.pageSize) {
   } else {
     delete esRequest.request['query'];
   }
+  
+  
   const response = await fetch(externalConfig.endpoints.esEndpoint + '_search', {
     method: 'POST',
     body: JSON.stringify(esRequest),
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(externalConfig.endpoints.esEndpointUserName + ':' + externalConfig.endpoints.esEndpointPassword)
     },
   });
 
@@ -106,6 +110,7 @@ export async function getAggregations(key, displayName) {
     }),
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(externalConfig.endpoints.esEndpointUserName + ':' + externalConfig.endpoints.esEndpointPassword),
     },
   });
 
@@ -131,6 +136,7 @@ export async function submitRecipe(newRecipe) {
     body: JSON.stringify(newRecipe),
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(externalConfig.endpoints.esEndpointUserName + ':' + externalConfig.endpoints.esEndpointPassword),
     },
   });
 
@@ -162,6 +168,7 @@ export async function getRecipe(id) {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(externalConfig.endpoints.esEndpointUserName + ':' + externalConfig.endpoints.esEndpointPassword),
     },
   });
 
@@ -186,6 +193,7 @@ export async function getUser(id, userObj) {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(externalConfig.endpoints.esEndpointUserName + ':' + externalConfig.endpoints.esEndpointPassword),
     },
   });
 
@@ -210,6 +218,7 @@ export async function createAndGetUser(id, userObj) {
     body: JSON.stringify(userObj),
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(externalConfig.endpoints.esEndpointUserName + ':' + externalConfig.endpoints.esEndpointPassword),
     },
   });
 
