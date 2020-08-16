@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import externalConfig from '../externalConfig';
+import adminConfig from '../recipeAdminConfig';
 import { appOperations } from '../redux/app';
 import { elasticsearchOperations } from '../redux/elasticsearch';
 import Aggregations from '../components/aggregations';
@@ -34,16 +35,22 @@ class HomePage extends Component {
   }
 
   render() {
-    const { recipes, totalRecipes } = this.props;
+    const { recipes, totalRecipes, userInfo } = this.props;
     const { submissionDialogIsOpen } = this.state;
+    let canSubmit = false;
+    if (userInfo && userInfo.email) {
+      console.log('userInfo: ', userInfo);
+      console.log('adminConfig.canSubmitRecipeEmails: ', adminConfig.canSubmitRecipeEmails);
+      canSubmit = adminConfig.canSubmitRecipeEmails.includes(userInfo.email);
+    }
     return (
       <div id="app_base" className="cookApp_Home_Page">
         <div id="app_base_left_panel" className="container bp3-card cookApp_row_left">
           <TableOfContents />
-          <Divider />
+          {canSubmit && <><Divider />
           <div className="submission_section">
             <Button text="Submit Recipe" onClick={() => this.toggleSubmissionDialog()} />
-          </div>
+          </div></>}
         </div>
         <div id="app_base_center_panel" className="container bp3-card cookApp_row_center">
           <div className="header-row">
@@ -68,7 +75,7 @@ class HomePage extends Component {
 }
 
 function mapStateToProps(state, props) {
-  const { elasticsearch, recipes } = state;
+  const { elasticsearch, recipes, user } = state;
   const aggs = elasticsearch.aggregationResults && elasticsearch.aggregationResults.aggregations &&
     elasticsearch.aggregationResults.aggregations.tags && elasticsearch.aggregationResults.aggregations.tags.buckets ? elasticsearch.aggregationResults.aggregations.tags.buckets : [];
   return {
@@ -76,7 +83,8 @@ function mapStateToProps(state, props) {
     pageSize: recipes.pageSize,
     totalRecipes: recipes.totalRecipes,
     currentRecipeIndex: recipes.currentRecipeIndex,
-    recipes: recipes.recipes
+    recipes: recipes.recipes,
+    userInfo: user.userInfo
   };
 }
 

@@ -1,12 +1,22 @@
 import * as types from './types';
 
 const defaultState = {
-  userInfo: {},
+  userInfo: {
+    firstName: null,
+    lastName: null,
+  },
   errors: [],
+  isUserInfoOpen: false
 };
 
 const userReducer = (state = defaultState, action) => {
   switch (action.type) {
+    case types.TOGGLE_USER_INFO: {
+      return {
+        ...state,
+        isUserInfoOpen: !state.isUserInfoOpen,
+      };
+    }
     case types.CLEAR_USER_INFO: {
       return {
         ...state,

@@ -5,7 +5,6 @@ import './App.scss';
 import InnerApp from './innerApp';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
 
-
 const store = configureStore();
 
 class App extends React.Component {
@@ -15,9 +14,7 @@ class App extends React.Component {
         <Provider store={store}>
           <div className="App">
             <header>
-              <h1>We now have Auth!</h1>
             </header>
-            <AmplifySignOut />
           </div>
           <InnerApp/>
         </Provider>

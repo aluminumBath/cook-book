@@ -1,3 +1,4 @@
+export const TOGGLE_USER_INFO = 'app/user/TOGGLE_USER_INFO';
 export const CLEAR_USER_INFO = 'app/user/CLEAR_USER_INFO';
 export const SET_USER = 'app/user/SET_USER';
 export const LOGIN_REQUEST = 'app/user/LOGIN_REQUEST';

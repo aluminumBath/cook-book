@@ -155,3 +155,82 @@ export async function submitRecipe(newRecipe) {
     };
   }
 }
+
+export async function getRecipe(id) {
+  const response = await fetch(externalConfig.endpoints.esEndpoint + externalConfig.recipesEsIndex + '/_doc/' + id, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (response.status !== 200) {
+    console.error('Error retrieving recipe. Error: ', response);
+    return {
+      status: response.status,
+      response: {},
+      error: response
+    };
+  } else {
+    const bodyRes = await response.text();
+    return {
+      status: response.status,
+      response: bodyRes
+    };
+  }
+}
+
+export async function getUser(id, userObj) {
+  const response = await fetch(externalConfig.endpoints.esEndpoint + externalConfig.userEsIndex + '/_doc/' + id, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (response.status !== 200) {
+    console.info('Unable to find user. Creating a user.');
+    return {
+      status: response.status,
+      response: await response.text()
+    }
+  } else {
+    const bodyRes = await response.text();
+    return {
+      status: response.status,
+      response: bodyRes
+    };
+  }
+}
+
+export async function createAndGetUser(id, userObj) {
+  const response = await fetch(externalConfig.endpoints.esEndpoint + externalConfig.userEsIndex + '/_doc/' + id, {
+    method: 'PUT',
+    body: JSON.stringify(userObj),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (response.status !== 200) {
+    console.error('Error submitting recipe. Error: ', response);
+    return {
+      status: response.status,
+      response: {},
+      error: response
+    };
+  } else {
+    const bodyRes = await response.text();
+    if (bodyRes['result'] !== 'created') {
+      return {
+        status: 405,
+        response: bodyRes,
+        error: bodyRes
+      };
+    }
+    return {
+      status: response.status,
+      response: bodyRes
+    };
+  }
+}

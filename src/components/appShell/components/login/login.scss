@@ -2,6 +2,16 @@
   display: flex;
   width: fit-content;
   margin: 10px;
+  align-items: center;
+  .welcome {
+    display: flex;
+    font-size: small;
+    margin-right: 5px;
+  }
+  .amplify-signin {
+    display: flex;
+
+  }
   .title {
     display: flex;
     margin: 5px;
