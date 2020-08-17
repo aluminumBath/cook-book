@@ -53,6 +53,7 @@ class SubmissionDialog extends Component {
       author,
       picture
     };
+    this.props.closeSubmissionDialog();
     return dispatch(recipesOperations.submitRecipe(newRecipe));
   }
 
@@ -91,8 +92,9 @@ class SubmissionDialog extends Component {
   }
 
   removeIngrObj = (idx) => {
-    const newIngredientsCpy = Object.assign([], this.state.ingredients);
+    var newIngredientsCpy = Object.assign([], this.state.ingredients);
     delete newIngredientsCpy[idx];
+    newIngredientsCpy = newIngredientsCpy.filter(o => o !== null);
     return this.setState({
       ...this.state,
       ingredients: newIngredientsCpy
@@ -107,8 +109,9 @@ class SubmissionDialog extends Component {
   }
 
   removeInstruction = (instr) => {
-    const newInstructsCpy = Object.assign([], this.state.instructions);
+    var newInstructsCpy = Object.assign([], this.state.instructions);
     delete newInstructsCpy[instr];
+    newInstructsCpy = newInstructsCpy.filter(o => o !== null);
     return this.setState({
       ...this.state,
       instructions: newInstructsCpy
@@ -134,8 +137,9 @@ class SubmissionDialog extends Component {
   }
 
   removeTag = (t) => {
-    const newTagsCpy = Object.assign([], this.state.tags);
+    var newTagsCpy = Object.assign([], this.state.tags);
     delete newTagsCpy[t];
+    newTagsCpy = newTagsCpy.filter(o => o !== null);
     return this.setState({
       ...this.state,
       tags: newTagsCpy
@@ -168,8 +172,9 @@ class SubmissionDialog extends Component {
   }
 
   removeAuthor = (a) => {
-    const newAuthorCpy = Object.assign([], this.state.author);
+    var newAuthorCpy = Object.assign([], this.state.author);
     delete newAuthorCpy[a];
+    newAuthorCpy = newAuthorCpy.filter(o => o !== null);
     return this.setState({
       ...this.state,
       author: newAuthorCpy
@@ -202,8 +207,9 @@ class SubmissionDialog extends Component {
   }
 
   removeNote = (n) => {
-    const newNotesCpy = Object.assign([], this.state.notes);
+    var newNotesCpy = Object.assign([], this.state.notes);
     delete newNotesCpy[n];
+    newNotesCpy = newNotesCpy.filter(o => o !== null);
     return this.setState({
       ...this.state,
       notes: newNotesCpy

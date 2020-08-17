@@ -119,7 +119,7 @@ export async function getAggregations(key, displayName) {
 
 export async function submitRecipe(newRecipe) {
   const response = await fetch(externalConfig.endpoints.esEndpoint + externalConfig.recipesEsIndex + '/_doc/', {
-    method: 'PUT',
+    method: 'POST',
     body: JSON.stringify(newRecipe),
     headers: {
       'Content-Type': 'application/json'

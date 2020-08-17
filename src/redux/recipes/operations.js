@@ -34,7 +34,7 @@ export function submitRecipe(newRecipe) {
   return async (dispatch) => {
     dispatch(actions.recipesRequest());
     const recipeResponse = await recipeApi.submitRecipe(newRecipe);
-    if (recipeResponse.status === 200) {
+    if (recipeResponse.status === 200 || recipeResponse.status === 201) {
       toast.success('Recipe successfully submitted.');
       dispatch(actions.recipesSuccess());
       return dispatch(getRecipes());
