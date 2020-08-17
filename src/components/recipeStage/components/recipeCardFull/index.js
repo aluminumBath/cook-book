@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, Tag } from '@blueprintjs/core';
-import PrintProvider, { Print, NoPrint } from 'react-easy-print';
 import { getPrintComp } from './printUtils';
 
 import './recipeCardFull.scss';
@@ -69,7 +68,7 @@ class RecipeCardFull extends Component {
                   {a}
                 </Tag>
               )
-            })}
+            })/* eslint-disable-next-line*/}
             {!recipe._source.author || recipe._source.author.length < 1 &&
               <div className="no-authors">Unknown</div>
             }

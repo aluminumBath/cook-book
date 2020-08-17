@@ -27,18 +27,14 @@ const queryStringQuery = (qVal) => {
 }
 
 export async function queryEs(qVal, pageSize) {
-  const response = await fetch(externalConfig.endpoints.esEndpoint + '_search', {
+  const response = await fetch(externalConfig.endpoints.esEndpoint + [externalConfig.recipesEsIndex].join() + '/_search', {
     method: 'POST',
     body: JSON.stringify({
-      request: {
-        ...queryStringQuery(qVal),
-        size: pageSize
-      },
-      indices: [externalConfig.recipesEsIndex, externalConfig.userEsIndex].join()
+      ...queryStringQuery(qVal),
+      size: pageSize
     }),
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa(externalConfig.endpoints.esEndpointUserName + ':' + externalConfig.endpoints.esEndpointPassword),
+      'Content-Type': 'application/json'
     },
   });
 
@@ -59,27 +55,24 @@ export async function queryEs(qVal, pageSize) {
 }
 
 export async function getRecipes(q, from = 0, size = externalConfig.pageSize) {
-  console.log('externalConfig.endpoints.esEndpoint: ', externalConfig.endpoints.esEndpoint);
+  console.log('getRecipes');
+
   const esRequest = {
-    request: {
-      from: from,
-      size: size
-    },
-    indices: [externalConfig.recipesEsIndex, externalConfig.userEsIndex].join()
+    from: from,
+    size: size
   };
   if (q && q !== '') {
-    esRequest.request['query'] = queryStringQuery(q)['query'];
+    esRequest['query'] = queryStringQuery(q)['query'];
   } else {
-    delete esRequest.request['query'];
+    delete esRequest['query'];
   }
   
   
-  const response = await fetch(externalConfig.endpoints.esEndpoint + '_search', {
+  const response = await fetch(externalConfig.endpoints.esEndpoint + [externalConfig.recipesEsIndex].join() + '/_search', {
     method: 'POST',
     body: JSON.stringify(esRequest),
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa(externalConfig.endpoints.esEndpointUserName + ':' + externalConfig.endpoints.esEndpointPassword)
+      'Content-Type': 'application/json'
     },
   });
 
@@ -100,17 +93,13 @@ export async function getRecipes(q, from = 0, size = externalConfig.pageSize) {
 }
 
 export async function getAggregations(key, displayName) {
-  const response = await fetch(externalConfig.endpoints.esEndpoint + '_search', {
+  const response = await fetch(externalConfig.endpoints.esEndpoint + [externalConfig.recipesEsIndex].join() + '/_search', {
     method: 'POST',
     body: JSON.stringify({
-      request: {
-        ...aggsQuery(key, displayName),
-      },
-      indices: [externalConfig.recipesEsIndex, externalConfig.userEsIndex].join()
+      ...aggsQuery(key, displayName),
     }),
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa(externalConfig.endpoints.esEndpointUserName + ':' + externalConfig.endpoints.esEndpointPassword),
+      'Content-Type': 'application/json'
     },
   });
 
@@ -135,8 +124,7 @@ export async function submitRecipe(newRecipe) {
     method: 'PUT',
     body: JSON.stringify(newRecipe),
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa(externalConfig.endpoints.esEndpointUserName + ':' + externalConfig.endpoints.esEndpointPassword),
+      'Content-Type': 'application/json'
     },
   });
 
@@ -167,8 +155,7 @@ export async function getRecipe(id) {
   const response = await fetch(externalConfig.endpoints.esEndpoint + externalConfig.recipesEsIndex + '/_doc/' + id, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa(externalConfig.endpoints.esEndpointUserName + ':' + externalConfig.endpoints.esEndpointPassword),
+      'Content-Type': 'application/json'
     },
   });
 
@@ -192,8 +179,7 @@ export async function getUser(id, userObj) {
   const response = await fetch(externalConfig.endpoints.esEndpoint + externalConfig.userEsIndex + '/_doc/' + id, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa(externalConfig.endpoints.esEndpointUserName + ':' + externalConfig.endpoints.esEndpointPassword),
+      'Content-Type': 'application/json'
     },
   });
 
@@ -217,8 +203,7 @@ export async function createAndGetUser(id, userObj) {
     method: 'PUT',
     body: JSON.stringify(userObj),
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa(externalConfig.endpoints.esEndpointUserName + ':' + externalConfig.endpoints.esEndpointPassword),
+      'Content-Type': 'application/json'
     },
   });
 

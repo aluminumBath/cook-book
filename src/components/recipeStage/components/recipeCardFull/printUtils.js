@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Tag } from "@blueprintjs/core";
 
 const convertToHex = (str) => {
@@ -43,7 +43,7 @@ export function getPrintComp(recipe) {
                 {a}
               </Tag>
             )
-          })}
+          })/* eslint-disable-next-line */}
           {!recipe._source.author || recipe._source.author.length < 1 &&
             <div className="no-authors" style={{backgroundColor: 'light-grey', justifyContent: 'space-around', textAlign: 'center', color: 'white'}}>Unknown</div>
           }

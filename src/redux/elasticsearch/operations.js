@@ -32,7 +32,7 @@ export function searchES(newVal) {
 
         const respBody = JSON.parse(elasticsearchResp.response);
         const recipesArray = respBody.hits.hits;
-        const total = respBody.hits.total;
+        const total = respBody.hits.total.value;
         const aggregationsArray = respBody.aggregations;
         dispatch(recipeOperations.setCurrPageIndex(0));
         dispatch(recipeOperations.setTotalRecipesLength(total));

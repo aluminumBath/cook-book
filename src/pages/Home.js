@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import externalConfig from '../externalConfig';
 import adminConfig from '../recipeAdminConfig';
 import { appOperations } from '../redux/app';
-import { elasticsearchOperations } from '../redux/elasticsearch';
 import Aggregations from '../components/aggregations';
 import RecipeStage from '../components/recipeStage';
 import SubmissionDialog from '../components/submissionDialog';
@@ -39,8 +37,6 @@ class HomePage extends Component {
     const { submissionDialogIsOpen } = this.state;
     let canSubmit = false;
     if (userInfo && userInfo.email) {
-      console.log('userInfo: ', userInfo);
-      console.log('adminConfig.canSubmitRecipeEmails: ', adminConfig.canSubmitRecipeEmails);
       canSubmit = adminConfig.canSubmitRecipeEmails.includes(userInfo.email);
     }
     return (

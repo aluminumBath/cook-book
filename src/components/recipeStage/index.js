@@ -20,7 +20,7 @@ class RecipeStage extends Component {
   }
 
   render() {
-    const { recipes, currentRecipeIndex, totalRecipes } = this.props;
+    const { recipes, currentRecipeIndex } = this.props;
     if (recipes && recipes.length < 1) {
       return (
         <div className="cookApp_Recipe_Stage">

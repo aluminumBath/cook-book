@@ -1,4 +1,4 @@
-import { toast } from 'react-toastify';
+//import { toast } from 'react-toastify';
 import * as actions from './actions';
 
 export function setNavRoute(navroute) {

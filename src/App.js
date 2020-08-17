@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import configureStore from './store';
 import './App.scss';
 import InnerApp from './innerApp';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
+import { withAuthenticator } from '@aws-amplify/ui-react'
 
 const store = configureStore();
 

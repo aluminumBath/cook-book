@@ -1,8 +1,6 @@
-import externalConfig from '../../externalConfig';
 import * as actions from './actions';
 import * as esApi from '../../api/elasticsearch';
 import { Auth } from 'aws-amplify';
-import { useAuth0 } from "@auth0/auth0-react";
 
 export function getUser(userObj) {
   return async (dispatch, getState) => {
@@ -10,7 +8,6 @@ export function getUser(userObj) {
       dispatch(actions.loginRequest());
       const attributes = (await Auth.currentSession()).getIdToken().payload;
 
-      const { user, isAuthenticated } = useAuth0;
 //      console.log('!!!!!!isAuthenticated: ', isAuthenticated);
 //      console.log('!!!!!!user: ', user);
 
