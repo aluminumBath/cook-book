@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Spinner } from "@blueprintjs/core";
 import { appOperations } from '../redux/app';
 import { recipesOperations } from '../redux/recipes';
 import { userOperations } from '../redux/user';
@@ -11,13 +12,25 @@ import './Pages.scss';
 class SingleRecipePage extends Component {
   constructor(props) {
     super(props);
-    props.dispatch(appOperations.setNavRoute(`/recipe/${props.id}`));
-    props.dispatch(recipesOperations.getRecipe(props.id));
+    props.dispatch(appOperations.setNavRoute(`/recipe/${props.match.params.id}`));
+    props.dispatch(recipesOperations.getRecipe(props.match.params.id));
     props.dispatch(userOperations.getUser());
   }
 
   render() {
-    const { recipe, currentRecipeIndex } = this.props;
+    const { recipe, currentRecipeIndex, isLoading } = this.props;
+    if (isLoading) {
+      return (
+        <Spinner />
+      )
+    }
+    if (!recipe) {
+      return (
+        <div id="app_base" className="cookApp_Recipe_Page">
+          <h3 className="not-found">Unable to find your recipe</h3>
+        </div>
+      )
+    }
     return (
       <div id="app_base" className="cookApp_Recipe_Page">
         <div id="app_base_center_panel" className="container bp3-card cookApp_row_center">
@@ -29,7 +42,7 @@ class SingleRecipePage extends Component {
 }
 
 SingleRecipePage.propTypes = {
-  id: PropTypes.string.isRequired,
+  match: PropTypes.object.isRequired,
   recipe: PropTypes.object,
   isLoading: PropTypes.bool
 };
@@ -43,7 +56,8 @@ function mapStateToProps(state, props) {
   return {
     currentRecipeIndex: recipes.currentRecipeIndex,
     recipe: recipes.specRecipe,
-    isLoading: recipes.loading
+    isLoading: recipes.loading,
+    id: props.match.params.id
   };
 }
 

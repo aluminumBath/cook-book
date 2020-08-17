@@ -8,6 +8,7 @@ const defaultState = {
   pageSize: 3,
   currentRecipeIndex: 0,
   totalRecipes: 0,
+  specRecipe: null
 };
 
 const recipesReducer = (state = defaultState, action) => {
@@ -22,6 +23,18 @@ const recipesReducer = (state = defaultState, action) => {
       return {
         ...state,
         recipes: action.newArray,
+      };
+    }
+    case types.SET_SPEC_RECIPE: {
+      return {
+        ...state,
+        specRecipe: action.newRecipe,
+      };
+    }
+    case types.CLEAR_SPEC_RECIPE: {
+      return {
+        ...state,
+        specRecipe: null,
       };
     }
     case types.RECIPES_REQUEST: {

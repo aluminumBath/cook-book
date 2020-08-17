@@ -18,12 +18,25 @@ export function getRecipes() {
     if (recipeResponse.status === 200) {
       const respBody = JSON.parse(recipeResponse.response);
       const recipesArray = respBody.hits && respBody.hits.hits ? respBody.hits.hits : [];
-     const recipesTotal = respBody.hits && respBody.hits.total && respBody.hits.total.value ? respBody.hits.total.value : 0;
+      const recipesTotal = respBody.hits && respBody.hits.total && respBody.hits.total.value ? respBody.hits.total.value : 0;
       const aggregationsArray = respBody.aggregations;
       dispatch(actions.setRecipes(recipesArray));
       dispatch(actions.setAggregations(aggregationsArray));
       dispatch(actions.setCurrPageIndex(0));
       dispatch(actions.setTotalRecipesLength(recipesTotal));
+      return dispatch(actions.recipesSuccess());
+    }
+    return dispatch(actions.recipesFailure(recipeResponse));
+  };
+}
+
+export function getRecipe(id) {
+  return async (dispatch, getState) => {
+    dispatch(actions.recipesRequest());
+    const recipeResponse = await recipeApi.getRecipe(id);
+    if (recipeResponse.status === 200) {
+      const respBody = JSON.parse(recipeResponse.response);
+      dispatch(actions.setSpecRecipe(respBody));
       return dispatch(actions.recipesSuccess());
     }
     return dispatch(actions.recipesFailure(recipeResponse));
@@ -54,4 +67,12 @@ export function setCurrPageIndex(newIndex) {
 
 export function setTotalRecipesLength(newTotal) {
   return actions.setTotalRecipesLength(newTotal);
+}
+
+export function setSpecRecipe(newRecipe) {
+  return actions.setSpecRecipe(newRecipe);
+}
+
+export function clearSpecRecipe() {
+  return actions.clearSpecRecipe();
 }
