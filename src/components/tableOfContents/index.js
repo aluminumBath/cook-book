@@ -2,17 +2,11 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button } from '@blueprintjs/core';
-import { recipesOperations } from '../../redux/recipes';
 import { elasticsearchOperations } from '../../redux/elasticsearch';
 
 import './tableOfContents.scss';
 
 class TableOfContents extends Component {
-  constructor(props) {
-    super(props);
-    props.dispatch(recipesOperations.getRecipes());
-  }
-
   updateSearchVal = (newVal) => {
     const { dispatch } = this.props;
     dispatch(elasticsearchOperations.updateFirstDocVal(0));

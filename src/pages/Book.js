@@ -1,33 +1,21 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import adminConfig from '../recipeAdminConfig';
 import { appOperations } from '../redux/app';
 import { recipesOperations } from '../redux/recipes';
 import { userOperations } from '../redux/user';
-import Aggregations from '../components/aggregations';
 import RecipeStage from '../components/recipeStage';
-import SubmissionDialog from '../components/submissionDialog';
-import TableOfContents from '../components/tableOfContents';
 import { getPrintCompFromRecipesArray } from '../components/recipeStage/components/recipeCardFull/printUtils';
-import { Button, Divider } from "@blueprintjs/core";
+import { Button } from "@blueprintjs/core";
 import './Pages.scss';
 
-class HomePage extends Component {
+class BookPage extends Component {
   constructor(props) {
     super(props);
+    props.dispatch(appOperations.setNavRoute('/book'));
     props.dispatch(recipesOperations.getRecipes());
-    props.dispatch(appOperations.setNavRoute('/home'));
     props.dispatch(userOperations.getUser());
-    this.state = {activeTabId: "campaign", submissionDialogIsOpen: false};
-  }
-
-  toggleSubmissionDialog = () => {
-    return this.setState({...this.state, submissionDialogIsOpen: !this.state.submissionDialogIsOpen});
-  }
-
-  closeSubmissionDialog = () => {
-    return this.setState({...this.state, submissionDialogIsOpen: false});
+    this.state = { pageSize: 10 };
   }
 
   printAll = () => {
@@ -37,21 +25,9 @@ class HomePage extends Component {
   }
 
   render() {
-    const { recipes, totalRecipes, userInfo } = this.props;
-    const { submissionDialogIsOpen } = this.state;
-    let canSubmit = false;
-    if (userInfo && userInfo.email) {
-      canSubmit = adminConfig.canSubmitRecipeEmails.includes(userInfo.email);
-    }
+    const { recipes, totalRecipes } = this.props;
     return (
-      <div id="app_base" className="cookApp_Home_Page">
-        <div id="app_base_left_panel" className="container bp3-card cookApp_row_left">
-          <TableOfContents />
-          {canSubmit && <><Divider />
-          <div className="submission_section">
-            <Button text="Submit Recipe" onClick={() => this.toggleSubmissionDialog()} />
-          </div></>}
-        </div>
+      <div id="app_base" className="cookApp_Book_Page">
         <div id="app_base_center_panel" className="container bp3-card cookApp_row_center">
           <div className="header-row">
             <div className="pages">
@@ -59,12 +35,7 @@ class HomePage extends Component {
             </div>
             <Button icon="git-push" onClick={() => this.printAll(recipes)} />
           </div>
-          <RecipeStage />
-          <SubmissionDialog isOpen={submissionDialogIsOpen} closeSubmissionDialog={this.closeSubmissionDialog} />
-        </div>
-        <div id="app_base_right_panel" className="container bp3-card cookApp_row_right">
-          <Aggregations keyObj={{key: 'tags.keyword', displayName: 'Tags'}} />
-          <Aggregations keyObj={{key: 'author.keyword', displayName: 'Chefs'}} />
+          <RecipeStage showAll={true} />
         </div>
         <div className="printOnly" id="printOnly">
           {getPrintCompFromRecipesArray(recipes)}
@@ -88,4 +59,4 @@ function mapStateToProps(state, props) {
   };
 }
 
-export default withRouter(connect(mapStateToProps)(HomePage));
+export default withRouter(connect(mapStateToProps)(BookPage));

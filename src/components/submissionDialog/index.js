@@ -25,7 +25,6 @@ const defState = {
 class SubmissionDialog extends Component {
   constructor(props) {
     super(props);
-    props.dispatch(recipesOperations.getRecipes());
     this.state = defState;
   }
 

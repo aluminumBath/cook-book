@@ -13,6 +13,9 @@ class RecipeCardFull extends Component {
     this.state = {
       showMore: false
     };
+    if (props.showAllDetails) {
+      this.state.showMore = props.showAllDetails;
+    }
   }
 
   convertToHex = (str) => {
@@ -46,7 +49,7 @@ class RecipeCardFull extends Component {
   }
 
   render() {
-    const { recipe } = this.props;
+    const { recipe, showAllDetails } = this.props;
     const { showMore } = this.state;
     if (recipe && recipe._source) {
       return (
@@ -123,7 +126,7 @@ class RecipeCardFull extends Component {
                 )
               })}
             </ul>}
-            <Button className="show-less" id="noPrint" text="Show Less" onClick={() => this.toggleShowMore()} />
+            {!showAllDetails && <Button className="show-less" id="noPrint" text="Show Less" onClick={() => this.toggleShowMore()} />}
           </>}
           {this.renderPrintSect()}
         </div>
@@ -134,7 +137,8 @@ class RecipeCardFull extends Component {
 }
 
 RecipeCardFull.propTypes = {
-  recipe: PropTypes.object.isRequired
+  recipe: PropTypes.object.isRequired,
+  showAllDetails: PropTypes.bool
 };
 
 function mapStateToProps(state, props) {

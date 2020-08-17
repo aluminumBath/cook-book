@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Button } from '@blueprintjs/core';
 import RecipeCardFull from './components/recipeCardFull';
 import * as recipeOperations from '../../redux/recipes/operations';
@@ -20,7 +21,7 @@ class RecipeStage extends Component {
   }
 
   render() {
-    const { recipes, currentRecipeIndex } = this.props;
+    const { recipes, currentRecipeIndex, showAll } = this.props;
     if (recipes && recipes.length < 1) {
       return (
         <div className="cookApp_Recipe_Stage">
@@ -30,10 +31,10 @@ class RecipeStage extends Component {
     }
     return (
       <div className="cookApp_Recipe_Stage">
-        {currentRecipeIndex !== 0 &&
+        {currentRecipeIndex !== 0 && !showAll &&
           <Button text="<" className="prev-button" onClick={() => this.paginate('prev')} />
         }
-        {recipes.map((r, index) => {
+        {!showAll && recipes.map((r, index) => {
           if (index === currentRecipeIndex-1 || index === currentRecipeIndex || index === currentRecipeIndex+1) {
             return (
               <RecipeCardFull key={r._id} recipe={r} currentRecipeIndex={currentRecipeIndex} />
@@ -41,7 +42,12 @@ class RecipeStage extends Component {
           }
           return null;
         })}
-        {currentRecipeIndex !== recipes.length-1 && recipes.length > 2 &&
+        {showAll && recipes.map((r, index) => {
+          return (
+            <RecipeCardFull showAllDetails={true} key={r._id} recipe={r} currentRecipeIndex={currentRecipeIndex} />
+          )
+        })}
+        {currentRecipeIndex !== recipes.length-1 && recipes.length > 2 && !showAll &&
           <Button text=">" className="prev-button" onClick={() => this.paginate('next')} />
         }
       </div>
@@ -50,6 +56,11 @@ class RecipeStage extends Component {
 }
 
 RecipeStage.propTypes = {
+  showAll: PropTypes.bool
+};
+
+RecipeStage.defaultProps = {
+  showAll: false
 };
 
 function mapStateToProps(state, props) {

@@ -89,7 +89,7 @@
 }
 @media print {
   .print {
-    display: flex;
+    display: block;
     width: 100%;
     justify-content: center;
     margin-right: 5px;
@@ -108,7 +108,7 @@
     }
     .picture, .tags, .authors, .title, .ingredients, .instructions, .notes {
       flex-direction: column;
-      display: flex;
+      display: block;
       width: 100%;
       justify-content: space-around;
     }
@@ -126,15 +126,15 @@
     .ingredients {
       flex-direction: column;
       .ingredient {
-        display: inline-flex;
+        display: inline-block;
         flex-direction: column;
         flex-wrap: wrap;
         width: 100%;
         .ingr-group {
-          display: inline-flex;
+          display: inline-block;
           width: 100%;
           .amount, .title {
-            display: flex;
+            display: block;
             justify-content: space-around;
             align-items: center;
             width: unset;
@@ -147,7 +147,7 @@
           }
         }
         .note {
-          display: flex;
+          display: block;
           width: 100%;
           padding-left: 5%;
           padding-right: 5%;
@@ -159,7 +159,7 @@
     .instructions, .notes {
       flex-direction: column;
       .step, .note {
-        display: inline-flex;
+        display: inline-block;
         width: 100%;
         flex-wrap: wrap;
         text-align: initial;

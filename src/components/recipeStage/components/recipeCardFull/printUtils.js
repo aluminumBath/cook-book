@@ -31,7 +31,7 @@ export function getPrintComp(recipe) {
       <div className="print">
         <h3 className="title" style={{textAlign: 'center'}}>{recipe._source.title}</h3>
         <div className="bp3-card picture" style={{display: 'flex', justifyContent: 'center'}}>
-          <img src={recipe._source.picture} alt={recipe._source.title} style={{display: 'flex', width: '300px', height: '300px'}} />
+          <img src={recipe._source.picture} alt={recipe._source.title} style={{display: 'block', width: '300px', height: '300px'}} />
         </div>
         <h5 className="title" style={{textAlign: 'center', margin: '3px'}}>
           Author(s)
@@ -72,7 +72,7 @@ export function getPrintComp(recipe) {
                     {i.ingredient}
                   </div>
                 </div>
-                <div className="note" style={{display: 'flex', width: '100%', marginLeft: '10px'}}>
+                <div className="note" style={{display: 'block', width: '100%', marginLeft: '10px'}}>
                   {i.note}
                 </div>
               </li>
