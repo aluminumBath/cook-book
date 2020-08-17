@@ -63,6 +63,7 @@ class HomePage extends Component {
         <div id="app_base_right_panel" className="container bp3-card cookApp_row_right">
           <Aggregations keyObj={{key: 'tags.keyword', displayName: 'Tags'}} />
           <Aggregations keyObj={{key: 'author.keyword', displayName: 'Authors'}} />
+          <Aggregations keyObj={{key: 'author.keyword', displayName: 'Authors'}} />
         </div>
         <div className="printOnly" id="printOnly">
           {getPrintCompFromRecipesArray(recipes)}
