@@ -10,7 +10,7 @@ class Login extends Component {
   render() {
     const { userInfo } = this.props;
     return (
-      <div className="cookApp_Login"> {/* eslint-disable-next-line */}
+      <div className="cookApp_Login"> {/*eslint-disable-next-line*/}
         {!userInfo || !userInfo.email || userInfo.email === '' || !userInfo.email_verified && <Button className="login_button" text="Log in" icon="user" />}
         {userInfo && userInfo.email && userInfo.email !== '' && userInfo.email_verified &&
         <>

@@ -55,8 +55,6 @@ export async function queryEs(qVal, pageSize) {
 }
 
 export async function getRecipes(q, from = 0, size = externalConfig.pageSize) {
-  console.log('getRecipes');
-
   const esRequest = {
     from: from,
     size: size

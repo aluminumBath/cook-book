@@ -2,31 +2,13 @@ import * as actions from './actions';
 import * as esApi from '../../api/elasticsearch';
 import { Auth } from 'aws-amplify';
 
-export function getUser(userObj) {
+export function getUser() {
   return async (dispatch, getState) => {
     try {
       dispatch(actions.loginRequest());
       const attributes = (await Auth.currentSession()).getIdToken().payload;
-
-//      console.log('!!!!!!isAuthenticated: ', isAuthenticated);
-//      console.log('!!!!!!user: ', user);
-
-      console.log('!!!!!!user: ', attributes);
-//      const state = getState().user;
       dispatch(actions.setUser(attributes));
-//      if (attributes && attributes['cognito:username']) {
-//        const response = await esApi.getUser(attributes['cognito:username'], userObj);
-//        if (response.status === 404) {
-//          dispatch(actions.setUser({email: attributes['cognito:username']}));
-//          return dispatch(actions.toggleUserInfo());
-//        } else {
-//
-//          console.log('response: ', response);
-//          dispatch(actions.setUser(response.response));
-//          return dispatch(actions.loginSuccess());
-//        }
-//      }
-      return dispatch(actions.loginError('Error with user: ', userObj));
+      return dispatch(actions.loginError('Error with user: ', attributes));
     } catch (error) {
       console.log('error signing up:', error);
       return dispatch(actions.loginError(error));
@@ -36,10 +18,8 @@ export function getUser(userObj) {
 
 export function submitUserInfo(userInfo) {
   return async (dispatch) => {
-    console.log('userInfo: ', userInfo);
     try {
       const response = esApi.createAndGetUser(userInfo.email, userInfo);
-      console.log('response: ', response);
       dispatch(actions.setUser(response.response));
       return dispatch(actions.loginSuccess());
     } catch (error) {

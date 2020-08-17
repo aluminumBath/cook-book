@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import adminConfig from '../recipeAdminConfig';
 import { appOperations } from '../redux/app';
+import { userOperations } from '../redux/user';
 import Aggregations from '../components/aggregations';
 import RecipeStage from '../components/recipeStage';
 import SubmissionDialog from '../components/submissionDialog';
@@ -15,6 +16,7 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     props.dispatch(appOperations.setNavRoute('/home'));
+    props.dispatch(userOperations.getUser());
     this.state = {activeTabId: "campaign", submissionDialogIsOpen: false};
   }
 
