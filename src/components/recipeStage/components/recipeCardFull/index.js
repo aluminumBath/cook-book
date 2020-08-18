@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, Tag } from '@blueprintjs/core';
 import { getPrintComp } from './printUtils';
+import externalConfig from '../../../../externalConfig';
 
 import './recipeCardFull.scss';
 
@@ -59,9 +60,9 @@ class RecipeCardFull extends Component {
             <Button className="print-btn" id="noPrint" icon="print" onClick={() => this.clickToPrint(`printOnly-${recipe._index}-${recipe._id}`, recipe)} />
           </div>
           {recipe._source.picture && recipe._source.picture !== '' && <div className="bp3-card picture">
-            <img src={recipe._source.picture} alt={recipe._source.title} />
+            <img src={recipe._source.picture || externalConfig.missingImageUrl} alt={recipe._source.title} />
           </div>}
-          <div className="bp3-card authors">
+          {showMore && <div className="bp3-card authors">
             <h5 className="title">
               Author(s)
             </h5>
@@ -75,8 +76,8 @@ class RecipeCardFull extends Component {
             {!recipe._source.author || recipe._source.author.length < 1 &&
               <div className="no-authors">Unknown</div>
             }
-          </div>
-          {recipe._source.tags && recipe._source.tags.length > 0 && <div className="bp3-card tags">
+          </div>}
+          {showMore && recipe._source.tags && recipe._source.tags.length > 0 && <div className="bp3-card tags">
             {recipe._source.tags.map(t => {
               return (
                 <Tag className="tag" key={t} style={{backgroundColor: '#' + this.convertToHex(t)}}>

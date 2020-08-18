@@ -50,7 +50,7 @@ export function submitRecipe(newRecipe) {
     if (recipeResponse.status === 200 || recipeResponse.status === 201) {
       toast.success('Recipe successfully submitted.');
       dispatch(actions.recipesSuccess());
-      return dispatch(getRecipes());
+      return await dispatch(getRecipes());
     }
     toast.error('Recipe could not be submitted. Please check the logs.');
     return dispatch(actions.recipesFailure(recipeResponse));

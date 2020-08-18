@@ -1,5 +1,6 @@
 import React from 'react';
 import { Tag } from "@blueprintjs/core";
+import externalConfig from '../../../../externalConfig';
 
 const convertToHex = (str) => {
   var hash = 0;
@@ -31,7 +32,7 @@ export function getPrintComp(recipe) {
       <div className="print">
         <h3 className="title" style={{textAlign: 'center'}}>{recipe._source.title}</h3>
         <div className="bp3-card picture" style={{display: 'flex', justifyContent: 'center'}}>
-          <img src={recipe._source.picture} alt={recipe._source.title} style={{display: 'block', width: '300px', height: '300px'}} />
+          <img src={recipe._source.picture || externalConfig.missingImageUrl} alt={recipe._source.title} style={{display: 'block', width: '300px', height: '300px'}} />
         </div>
         <h5 className="title" style={{textAlign: 'center', margin: '3px'}}>
           Author(s)
