@@ -53,6 +53,7 @@ class SubmissionDialog extends Component {
       picture
     };
     this.props.closeSubmissionDialog();
+    this.setState(defState);
     return dispatch(recipesOperations.submitRecipe(newRecipe));
   }
 
