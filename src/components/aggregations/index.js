@@ -8,11 +8,6 @@ import { elasticsearchOperations } from '../../redux/elasticsearch';
 import './aggregations.scss';
 
 class Aggregations extends Component {
-  constructor(props) {
-    super(props);
-    props.dispatch(elasticsearchOperations.getAggregations(props.keyObj.key, props.keyObj.displayName));
-  }
-
   convertToHex = (str) => {
     var hash = 0;
     for (var i = 0; i < str.length; i++) {

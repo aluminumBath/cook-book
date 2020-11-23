@@ -53,7 +53,6 @@ export async function queryEs(qVal, pageSize) {
       }
     }
   }
-  console.log('hits: ', hits);
   return {
     status: 200,
     response: hits
@@ -69,7 +68,6 @@ export async function getRecipes(q, from = 0, size = externalConfig.pageSize) {
     };
   }
   const searchForTheseTags = q.split();
-  console.log('searchForTheseTags: ', searchForTheseTags);
   for(var searchTag in searchForTheseTags) {
       if (searchTag in Object.keys(tags)) {
         const recordsIds = tags[searchTag];
@@ -86,9 +84,11 @@ export async function getRecipes(q, from = 0, size = externalConfig.pageSize) {
   };
 }
 
-export async function getAggregations(key, displayName) {
+export function getAggregations(key, displayName) {
   const buckets = [];
   for(var tag in Object.keys(tags)) {
+    tag = Object.keys(tags)[tag];
+    console.log("tag: ", tag);
     const num = tags[tag].length;
     buckets.push({
       key: tag,

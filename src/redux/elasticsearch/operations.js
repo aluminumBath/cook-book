@@ -3,17 +3,9 @@ import * as elasticsearchApi from '../../api/elasticsearch';
 import * as recipeOperations from '../../redux/recipes/operations';
 
 export function getAggregations(key, displayName) {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
-      dispatch(actions.getAggregationsRequest(key));
-      const elasticsearchResp = await elasticsearchApi.getAggregations(key, displayName);
-      if (elasticsearchResp.status !== 200) {
-        return dispatch(actions.getAggregationsFailure(elasticsearchResp.error, key));
-      } else {
-        const results = JSON.parse(elasticsearchResp.response).aggregations[displayName];
-        dispatch(actions.setAggregations(results, key));
-        return dispatch(actions.getAggregationsSuccess(key));
-      }
+      return dispatch(actions.getAggregationsFailure('implement', key));
     } catch (err) {
       return dispatch(actions.getAggregationsFailure(err, key));
     }
@@ -25,15 +17,15 @@ export function searchES(newVal) {
     const state = getState();
     try {
       dispatch(actions.getElasticsearchQueryRequest());
-      console.log('newVal2: ', newVal);
       const elasticsearchResp = await elasticsearchApi.queryEs(newVal, state.elasticsearch.pageSize);
       if (elasticsearchResp.status !== 200) {
         return dispatch(actions.getElasticsearchQueryFailure(elasticsearchResp.error));
       } else {
-
-        const respBody = JSON.parse(elasticsearchResp.response);
-        const recipesArray = respBody.hits.hits;
-        const total = respBody.hits.total.value;
+        const respBody = elasticsearchResp.response;
+        const recipesArray = Object.keys(respBody).map(k => respBody[k]);
+        getAggregations('tags.keyword', 'Tags');
+        await getAggregations('author.keyword', 'Chefs');
+        const total = Object.keys(respBody).length;
         const aggregationsArray = respBody.aggregations;
         dispatch(recipeOperations.setCurrPageIndex(0));
         dispatch(recipeOperations.setTotalRecipesLength(total));

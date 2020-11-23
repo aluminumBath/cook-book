@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify';
 import * as actions from './actions';
 import * as recipeApi from '../../api/elasticsearch';
+import * as elasticsearchOperations from '../elasticsearch/operations';
 import externalConfig from '../../externalConfig';
 
 export function setRecipes(newArray) {
@@ -18,17 +19,12 @@ export function getRecipes() {
     const recipeResponse = await recipeApi.getRecipes(state.elasticsearch.searchValue);
     if (recipeResponse.status === 200) {
       let respBody = recipeResponse.response;
-      console.log("respBody: ", respBody);
       let recipesArray = Object.keys(respBody).map(k => respBody[k]);
-      let recipesTotal = 0;
-      if (!externalConfig.useFakeDb) {
-        console.log("respBody2: ", respBody);
-        respBody = JSON.parse(recipeResponse.response);
-        recipesArray = respBody.hits && respBody.hits.hits ? respBody.hits.hits : [];
-        recipesTotal = respBody.hits && respBody.hits.total && respBody.hits.total.value ? respBody.hits.total.value : 0;
-      }
+      let recipesTotal = recipesArray.length;
       const aggregationsArray = respBody.aggregations;
       dispatch(actions.setRecipes(recipesArray));
+      dispatch(elasticsearchOperations.getAggregations('tags', 'Tags'));
+      await dispatch(elasticsearchOperations.getAggregations('author', 'Chefs'));
       dispatch(actions.setAggregations(aggregationsArray));
       dispatch(actions.setCurrPageIndex(0));
       dispatch(actions.setTotalRecipesLength(recipesTotal));

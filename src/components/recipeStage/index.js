@@ -35,7 +35,6 @@ class RecipeStage extends Component {
           <Button text="<" className="prev-button" onClick={() => this.paginate('prev')} />
         }
         {!showAll && recipes.map((r, index) => {
-        console.log('r: ', r);
           if (index === currentRecipeIndex-1 || index === currentRecipeIndex || index === currentRecipeIndex+1) {
             return (
               <RecipeCardFull key={r._id} recipe={r} currentRecipeIndex={currentRecipeIndex} />

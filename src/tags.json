@@ -1,35 +1,46 @@
 {
   "Brunch": {
+    "key": "tags",
     "recipes": ["0"]
   },
   "Wedding": {
+    "key": "tags",
     "recipes": ["0"]
   },
   "Punch": {
+    "key": "tags",
     "recipes": ["0"]
   },
   "Alcohol": {
+    "key": "tags",
     "recipes": ["0"]
   },
   "Beverage": {
+    "key": "tags",
     "recipes": ["0"]
   },
   "Apple": {
+    "key": "tags",
     "recipes": ["0"]
   },
   "Pineapple": {
+    "key": "tags",
     "recipes": ["0"]
   },
   "Almond": {
+    "key": "tags",
     "recipes": ["0"]
   },
   "Ginger Ale": {
+    "key": "tags",
     "recipes": ["0"]
   },
   "Jean Rhodes": {
+    "key": "author",
     "recipes": ["0"]
   },
   "Elaine Sims": {
+    "key": "author",
     "recipes": ["0"]
   }
 }

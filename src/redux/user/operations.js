@@ -7,10 +7,11 @@ export function getUser() {
     try {
       dispatch(actions.loginRequest());
       const attributes = (await Auth.currentSession()).getIdToken().payload;
+      console.log('attributes: ', attributes.email);
       dispatch(actions.setUser(attributes));
-      return dispatch(actions.loginError('Error with user: ', attributes));
+      return dispatch(actions.loginSuccess(attributes));
     } catch (error) {
-      console.log('error signing up:', error);
+      console.log('getUser error signing up:', error.email);
       return dispatch(actions.loginError(error));
     }
   };
@@ -21,7 +22,7 @@ export function submitUserInfo(userInfo) {
     try {
       const response = esApi.createAndGetUser(userInfo.email, userInfo);
       dispatch(actions.setUser(response.response));
-      return dispatch(actions.loginSuccess());
+      return dispatch(actions.loginSuccess(response));
     } catch (error) {
       console.log('error signing up:', error);
       return dispatch(actions.loginError(error));

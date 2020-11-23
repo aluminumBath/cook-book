@@ -63,8 +63,8 @@ class HomePage extends Component {
           <SubmissionDialog isOpen={submissionDialogIsOpen} closeSubmissionDialog={this.closeSubmissionDialog} />
         </div>
         <div id="app_base_right_panel" className="container bp3-card cookApp_row_right">
-          <Aggregations keyObj={{key: 'tags.keyword', displayName: 'Tags'}} />
-          <Aggregations keyObj={{key: 'author.keyword', displayName: 'Chefs'}} />
+          <Aggregations keyObj={{key: 'tags', displayName: 'Tags'}} />
+          <Aggregations keyObj={{key: 'author', displayName: 'Chefs'}} />
         </div>
         <div className="printOnly" id="printOnly">
           {getPrintCompFromRecipesArray(recipes)}

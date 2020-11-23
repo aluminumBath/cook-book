@@ -52,8 +52,6 @@ class RecipeCardFull extends Component {
   render() {
     const { recipe, showAllDetails } = this.props;
     const { showMore } = this.state;
-    console.log('recipe:', recipe);
-    console.log('recipe._source:', recipe._source);
     const authorArr = recipe.author || recipe._source.author;
     const tagsArr = recipe.tags || recipe._source.tags;
     const ingrArr = recipe.ingredients || recipe._source.ingredients;
