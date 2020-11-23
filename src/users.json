@@ -1,9 +1,9 @@
-[
-  {
+{
+  "1": {
     "_id": "1",
     "userName": "Steele Schauer",
     "darkMode": false,
     "favorites": ["4","6"],
     "badges": ["ADMIN", "ALPHA"]
   }
-]
+}

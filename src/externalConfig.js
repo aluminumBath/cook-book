@@ -1,5 +1,6 @@
 const externalConfig = {
   unclassDevEnv: true,
+  useFakeDb: true,
   appName: 'TJ\'s Cook Book',
   appMsg: 'TJ\'s Cookin',
   appMode: 'demo',

@@ -1,4 +1,7 @@
 import externalConfig from '../../externalConfig';
+import recipes from '../../recipes.json';
+import tags from '../../tags.json';
+import users from '../../users.json';
 
 const aggsQuery = (key, displayName) => {
  const obj = {
@@ -27,203 +30,118 @@ const queryStringQuery = (qVal) => {
 }
 
 export async function queryEs(qVal, pageSize) {
-  const response = await fetch(externalConfig.endpoints.esEndpoint + [externalConfig.recipesEsIndex].join() + '/_search', {
-    method: 'POST',
-    body: JSON.stringify({
-      ...queryStringQuery(qVal),
-      size: pageSize
-    }),
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  });
-
-  if (response.status !== 200) {
-    console.error('Error retrieving notifications. Error: ', response);
+  const searchSpace = Object.keys(tags).map(s => s.toLowerCase());
+  const hits = [];
+  if (qVal == "") {
     return {
-      status: response.status,
-      response: {},
-      error: response
-    };
-  } else {
-    const bodyRes = await response.text();
-    return {
-      status: response.status,
-      response: bodyRes
+      status: 200,
+      response: recipes
     };
   }
+  const searchForTheseTags = qVal.split();
+  for(var searchTag in searchForTheseTags) {
+    var foundObj = { found: false, index: -1 };
+    const origTag = ''+searchForTheseTags[searchTag];
+    searchTag = searchForTheseTags[searchTag].toLowerCase();
+    if (Object.keys(tags).map(s => s.toLowerCase()).includes(searchTag)) {
+      const loc = Object.keys(tags).map(s => s.toLowerCase()).indexOf(searchTag);
+      const recordsIds = tags[Object.keys(tags)[loc]].recipes;
+      for (var id in recordsIds) {
+        if (id in Object.keys(recipes)) {
+          hits.push(recipes[id]);
+        }
+      }
+    }
+  }
+  console.log('hits: ', hits);
+  return {
+    status: 200,
+    response: hits
+  };
 }
 
 export async function getRecipes(q, from = 0, size = externalConfig.pageSize) {
-  const esRequest = {
-    from: from,
-    size: size
+  const hits = [];
+  if (q == "") {
+    return {
+      status: 200,
+      response: Object.keys(recipes).slice(from, from+size).map(k => recipes[k])
+    };
+  }
+  const searchForTheseTags = q.split();
+  console.log('searchForTheseTags: ', searchForTheseTags);
+  for(var searchTag in searchForTheseTags) {
+      if (searchTag in Object.keys(tags)) {
+        const recordsIds = tags[searchTag];
+        for (var id in recordsIds) {
+          if (id in Object.keys(recipes)) {
+            hits.push(recipes[id]);
+          }
+        }
+      }
+    }
+  return {
+    status: 200,
+    response: hits
   };
-  if (q && q !== '') {
-    esRequest['query'] = queryStringQuery(q)['query'];
-  } else {
-    delete esRequest['query'];
-  }
-  
-  
-  const response = await fetch(externalConfig.endpoints.esEndpoint + [externalConfig.recipesEsIndex].join() + '/_search', {
-    method: 'POST',
-    body: JSON.stringify(esRequest),
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  });
-
-  if (response.status !== 200) {
-    console.error('Error retrieving notifications. Error: ', response);
-    return {
-      status: response.status,
-      response: {},
-      error: response
-    };
-  } else {
-    const bodyRes = await response.text();
-    return {
-      status: response.status,
-      response: bodyRes
-    };
-  }
 }
 
 export async function getAggregations(key, displayName) {
-  const response = await fetch(externalConfig.endpoints.esEndpoint + [externalConfig.recipesEsIndex].join() + '/_search', {
-    method: 'POST',
-    body: JSON.stringify({
-      ...aggsQuery(key, displayName),
-    }),
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  });
-
-  if (response.status !== 200) {
-    console.error('Error retrieving notifications. Error: ', response);
-    return {
-      status: response.status,
-      response: {},
-      error: response
-    };
-  } else {
-    const bodyRes = await response.text();
-    return {
-      status: response.status,
-      response: bodyRes
-    };
+  const buckets = [];
+  for(var tag in Object.keys(tags)) {
+    const num = tags[tag].length;
+    buckets.push({
+      key: tag,
+      doc_count: num
+    });
   }
+
+  return {
+    status: 200,
+    response: {
+      aggregations: {
+        [displayName]: {
+          buckets: buckets
+        }
+      }
+    }
+  };
 }
 
 export async function submitRecipe(newRecipe) {
-  const response = await fetch(externalConfig.endpoints.esEndpoint + externalConfig.recipesEsIndex + '/_doc/', {
-    method: 'POST',
-    body: JSON.stringify(newRecipe),
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  });
-
-  if (response.status !== 200) {
-    console.error('Error submitting recipe. Error: ', response);
-    return {
-      status: response.status,
-      response: {},
-      error: response
-    };
-  } else {
-    const bodyRes = await response.text();
-    if (bodyRes['result'] !== 'created') {
-      return {
-        status: 405,
-        response: bodyRes,
-        error: bodyRes
-      };
-    }
-    return {
-      status: response.status,
-      response: bodyRes
-    };
-  }
+  let newRecipes = await recipes;
+  newRecipes.concat(newRecipe);
+  recipes = newRecipes
+  return {
+    status: 200,
+    response: recipes
+  };
 }
 
 export async function getRecipe(id) {
-  const response = await fetch(externalConfig.endpoints.esEndpoint + externalConfig.recipesEsIndex + '/_doc/' + id, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  });
-
-  if (response.status !== 200) {
-    console.error('Error retrieving recipe. Error: ', response);
-    return {
-      status: response.status,
-      response: {},
-      error: response
-    };
-  } else {
-    const bodyRes = await response.text();
-    return {
-      status: response.status,
-      response: bodyRes
-    };
-  }
+  let response = await recipes[id];
+  return {
+    status: response.status,
+    response: response
+  };
 }
 
 export async function getUser(id, userObj) {
-  const response = await fetch(externalConfig.endpoints.esEndpoint + externalConfig.userEsIndex + '/_doc/' + id, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  });
-
-  if (response.status !== 200) {
-    console.info('Unable to find user. Creating a user.');
-    return {
-      status: response.status,
-      response: await response.text()
-    }
-  } else {
-    const bodyRes = await response.text();
-    return {
-      status: response.status,
-      response: bodyRes
-    };
+  return {
+    status: 200,
+    response: await users[id]
   }
 }
 
 export async function createAndGetUser(id, userObj) {
-  const response = await fetch(externalConfig.endpoints.esEndpoint + externalConfig.userEsIndex + '/_doc/' + id, {
-    method: 'PUT',
-    body: JSON.stringify(userObj),
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  });
-
-  if (response.status !== 200) {
-    console.error('Error submitting recipe. Error: ', response);
-    return {
-      status: response.status,
-      response: {},
-      error: response
-    };
-  } else {
-    const bodyRes = await response.text();
-    if (bodyRes['result'] !== 'created') {
-      return {
-        status: 405,
-        response: bodyRes,
-        error: bodyRes
-      };
-    }
-    return {
-      status: response.status,
-      response: bodyRes
-    };
-  }
+  let newId = users;
+  newId = newId.length + 5;
+  userObj.id = newId
+  let newUsers = users;
+  newUsers.concat(userObj);
+  users = newUsers;
+  return {
+    status: 200,
+    response: userObj
+  };
 }

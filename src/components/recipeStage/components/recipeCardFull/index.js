@@ -52,33 +52,40 @@ class RecipeCardFull extends Component {
   render() {
     const { recipe, showAllDetails } = this.props;
     const { showMore } = this.state;
-    if (recipe && recipe._source) {
+    console.log('recipe:', recipe);
+    console.log('recipe._source:', recipe._source);
+    const authorArr = recipe.author || recipe._source.author;
+    const tagsArr = recipe.tags || recipe._source.tags;
+    const ingrArr = recipe.ingredients || recipe._source.ingredients;
+    const instrArr = recipe.instructions || recipe._source.instructions;
+    const notesArr = recipe.notes || recipe._source.notes;
+    if (recipe) {
       return (
-        <div id={`${recipe._source.title}-print`} className="cookApp_Recipe_Card_Full bp3-card bp3-elevation-3">
+        <div id={`${recipe.title || recipe._source.title}-print`} className="cookApp_Recipe_Card_Full bp3-card bp3-elevation-3">
           <div className="title">
-            <h3 className="title">{recipe._source.title}</h3>
+            <h3 className="title">{recipe.title || recipe._source.title}</h3>
             <Button className="print-btn" id="noPrint" icon="print" onClick={() => this.clickToPrint(`printOnly-${recipe._index}-${recipe._id}`, recipe)} />
           </div>
-          {recipe._source.picture && recipe._source.picture !== '' && <div className="bp3-card picture">
-            <img src={recipe._source.picture || externalConfig.missingImageUrl} alt={recipe._source.title} />
+          {((recipe.picture && recipe.picture !== '') || (recipe._source.picture && recipe._source.picture !== '')) && <div className="bp3-card picture">
+            <img src={recipe.picture || recipe._source.picture || externalConfig.missingImageUrl} alt={recipe.title || recipe._source.title} />
           </div>}
           {showMore && <div className="bp3-card authors">
             <h5 className="title">
               Author(s)
             </h5>
-            {recipe._source.author && recipe._source.author.length > 0 && recipe._source.author.map(a => {
+            {authorArr && authorArr.length > 0 && authorArr.map(a => {
               return (
                 <Tag className="tag" key={a}>
                   {a}
                 </Tag>
               )
             })/* eslint-disable-next-line*/}
-            {!recipe._source.author || recipe._source.author.length < 1 &&
+            {!authorArr || authorArr.length < 1 &&
               <div className="no-authors">Unknown</div>
             }
           </div>}
-          {showMore && recipe._source.tags && recipe._source.tags.length > 0 && <div className="bp3-card tags">
-            {recipe._source.tags.map(t => {
+          {showMore && tagsArr && tagsArr.length > 0 && <div className="bp3-card tags">
+            {tagsArr.map(t => {
               return (
                 <Tag className="tag" key={t} style={{backgroundColor: '#' + this.convertToHex(t)}}>
                   {t}
@@ -90,8 +97,8 @@ class RecipeCardFull extends Component {
             <Button className="show-more" id="noPrint" text="Show More" onClick={() => this.toggleShowMore()} />
           }
           {showMore && <>
-            {recipe._source.ingredients && recipe._source.ingredients.length > 0 && <ul className="bp3-card ingredients">
-              {recipe._source.ingredients.map(i => {
+            {ingrArr && ingrArr.length > 0 && <ul className="bp3-card ingredients">
+              {ingrArr.map(i => {
                 return (
                   <li className="ingredient" key={i.ingredient}>
                     <div className="ingr-group">
@@ -109,8 +116,8 @@ class RecipeCardFull extends Component {
                 )
               })}
             </ul>}
-            {recipe._source.instructions && recipe._source.instructions.length > 0 && <ul className="bp3-card instructions">
-              {recipe._source.instructions.map(i => {
+            {instrArr && instrArr.length > 0 && <ul className="bp3-card instructions">
+              {instrArr.map(i => {
                 return (
                   <li className="step" key={i}>
                     - {i}
@@ -118,8 +125,8 @@ class RecipeCardFull extends Component {
                 )
               })}
             </ul>}
-            {recipe._source.notes && recipe._source.notes.length > 0 && <ul className="bp3-card notes">
-              {recipe._source.notes.map(i => {
+            {notesArr && notesArr.length > 0 && <ul className="bp3-card notes">
+              {notesArr.map(i => {
                 return (
                   <li className="note" key={i}>
                     - {i}

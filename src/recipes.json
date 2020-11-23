@@ -1,0 +1,54 @@
+{
+  "0": {
+    "_id" : "0",
+    "title" : "Punch",
+    "ingredients" : [
+      {
+        "ingredient" : "Apple Cider",
+        "amount" : "1 gallon",
+        "note" : ""
+      },
+      {
+        "ingredient" : "Pineapple Juice",
+        "amount" : "2 large cans",
+        "note" : ""
+      },
+      {
+        "ingredient" : "Almond Flavoring",
+        "amount" : "1 small bottle",
+        "note" : ""
+      },
+      {
+        "ingredient" : "Ginger Ale",
+        "amount" : "8 large bottles",
+        "note" : ""
+      }
+    ],
+    "instructions" : [
+      "Mix everything but 2 bottles of ginger ale",
+      "Freeze mixture",
+      "Dilute with the remaining ginger ale and serve"
+    ],
+    "notes" : [
+      "For hot punch, substitute a package of cinnamon sticks for the almond flavoring. Simmer on the stove for 2 hours"
+    ],
+    "tags" : [
+      "Brunch",
+      "Wedding",
+      "Punch",
+      "Alcohol",
+      "Beverage",
+      "Apple",
+      "Pineapple",
+      "Almond",
+      "Ginger Ale",
+      "Jean Rhodes",
+      "Elaine Sims"
+    ],
+    "author" : [
+      "Jean Rhodes",
+      "Elaine Sims"
+    ],
+    "picture" : "https://www.tasteofhome.com/wp-content/uploads/2018/01/Spiced-Cider-Punch_EXPS_SDDJ18_46209_C08_01_9b-696x696.jpg"
+  }
+}

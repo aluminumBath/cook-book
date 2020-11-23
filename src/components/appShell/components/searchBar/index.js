@@ -15,6 +15,7 @@ class SearchBar extends Component {
 
   updateSearchBarVal = (newVal) => {
     const { dispatch } = this.props;
+    console.log('newVal: ', newVal);
     return dispatch(elasticsearchOperations.updateSearchValue(newVal));
   }
 
