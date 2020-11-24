@@ -1,9 +1,17 @@
 {
-  "1": {
+  "steeleschauer@gmail.com": {
     "_id": "1",
     "userName": "Steele Schauer",
+    "email": "steeleschauer@gmail.com",
     "darkMode": false,
     "favorites": ["4","6"],
     "badges": ["ADMIN", "ALPHA"]
+  },
+  "2": {
+    "_id": "2",
+    "userName": "Grandma Muffins",
+    "darkMode": false,
+    "favorites": ["4","6"],
+    "badges": ["ALPHA", "TJ"]
   }
 }

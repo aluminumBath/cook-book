@@ -41,14 +41,104 @@
       "Apple",
       "Pineapple",
       "Almond",
-      "Ginger Ale",
-      "Jean Rhodes",
-      "Elaine Sims"
+      "Ginger Ale"
     ],
     "author" : [
       "Jean Rhodes",
       "Elaine Sims"
     ],
     "picture" : "https://www.tasteofhome.com/wp-content/uploads/2018/01/Spiced-Cider-Punch_EXPS_SDDJ18_46209_C08_01_9b-696x696.jpg"
+  },
+  "1": {
+    "_id" : "1",
+    "title" : "Spice Tea",
+    "ingredients" : [
+      {
+        "ingredient" : "Nestea with lemon and sugar",
+        "amount" : "3/4 cup",
+        "note" : ""
+      },
+      {
+        "ingredient" : "Tang",
+        "amount" : "5/4 cup",
+        "note" : ""
+      },
+      {
+        "ingredient" : "cinnamon",
+        "amount" : "1 tsp",
+        "note" : ""
+      },
+      {
+        "ingredient" : "Cloves",
+        "amount" : "1/4 tsp",
+        "note" : ""
+      },
+      {
+        "ingredient" : "Allspice",
+        "amount" : "1/2 tsp",
+        "note" : ""
+      }
+    ],
+    "instructions" : [
+      "Mix all ingredients together"
+    ],
+    "notes" : [],
+    "tags" : [
+      "Beverage",
+      "Brunch"
+    ],
+    "author" : [],
+    "picture" : "https://www.frontiercoop.com/community/images/made/84c0d7331e0f982c/Frontier-Peppermint-Spice-Tea-Recipe13_540_540_s_c1.jpg"
+  },
+  "2": {
+    "_id": "2",
+    "title" : "Creamed Beef and Gravy",
+    "ingredients" : [
+      {
+        "ingredient" : "Butter",
+        "amount" : "1 stick",
+        "note" : ""
+      },
+      {
+        "ingredient" : "flour",
+        "amount" : "0.5 cup",
+        "note" : "do not brown"
+      },
+      {
+        "ingredient" : "evaporated milk",
+        "amount" : "1 can",
+        "note" : "large"
+      },
+      {
+        "ingredient" : "water",
+        "amount" : "1 cup",
+        "note" : ""
+      },
+      {
+        "ingredient" : "cut dried beef",
+        "amount" : "2 jars",
+        "note" : ""
+      },
+      {
+        "ingredient" : "bread",
+        "amount" : "1 loaf",
+        "note" : "toasted"
+      }
+    ],
+    "instructions" : [
+      "Mix all ingredients (except bread) and cook until thick",
+      "Serve over toast"
+    ],
+    "notes" : [
+      "Rhodes Family Favorite",
+      "Do not let it get too thick when cooking, it thickens when it settles"
+    ],
+    "tags" : [
+      "Breakfast"
+    ],
+    "author" : [
+      "Jean Rhodes"
+    ],
+    "picture" : "https://spicysouthernkitchen.com/wp-content/uploads/Creamed-Chipped-Beef-3.jpg"
   }
 }

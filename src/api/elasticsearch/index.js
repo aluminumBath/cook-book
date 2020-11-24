@@ -40,14 +40,16 @@ export async function queryEs(qVal, pageSize) {
   }
   const searchForTheseTags = qVal.split();
   for(var searchTag in searchForTheseTags) {
+    searchTag = searchForTheseTags[searchTag];
     var foundObj = { found: false, index: -1 };
-    const origTag = ''+searchForTheseTags[searchTag];
-    searchTag = searchForTheseTags[searchTag].toLowerCase();
+    const origTag = Object.assign(searchTag, "");
+    searchTag = origTag.toLowerCase();
     if (Object.keys(tags).map(s => s.toLowerCase()).includes(searchTag)) {
       const loc = Object.keys(tags).map(s => s.toLowerCase()).indexOf(searchTag);
       const recordsIds = tags[Object.keys(tags)[loc]].recipes;
       for (var id in recordsIds) {
-        if (id in Object.keys(recipes)) {
+        id = recordsIds[id].toString();
+        if (Object.keys(recipes).includes(id)) {
           hits.push(recipes[id]);
         }
       }

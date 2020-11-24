@@ -18,6 +18,7 @@ export function searchES(newVal) {
     try {
       dispatch(actions.getElasticsearchQueryRequest());
       const elasticsearchResp = await elasticsearchApi.queryEs(newVal, state.elasticsearch.pageSize);
+      console.log('elasticsearchResp: ', elasticsearchResp);
       if (elasticsearchResp.status !== 200) {
         return dispatch(actions.getElasticsearchQueryFailure(elasticsearchResp.error));
       } else {

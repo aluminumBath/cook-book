@@ -1,5 +1,6 @@
 import * as actions from './actions';
 import * as esApi from '../../api/elasticsearch';
+import users from '../../users.json';
 import { Auth } from 'aws-amplify';
 
 export function getUser() {
@@ -7,8 +8,16 @@ export function getUser() {
     try {
       dispatch(actions.loginRequest());
       const attributes = (await Auth.currentSession()).getIdToken().payload;
+      console.log('attributes: ', attributes);
       console.log('attributes: ', attributes.email);
-      dispatch(actions.setUser(attributes));
+      console.log('users[email]: ', users[email]);
+      const email = attributes.email;
+      var userObj = {
+        ...attributes,
+
+      };
+        dispatch(actions.setUser(userObj));
+//      dispatch(actions.setUser(attributes));
       return dispatch(actions.loginSuccess(attributes));
     } catch (error) {
       console.log('getUser error signing up:', error.email);
