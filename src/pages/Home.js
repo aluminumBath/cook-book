@@ -43,7 +43,6 @@ class HomePage extends Component {
     if (userInfo && userInfo.email) {
       canSubmit = adminConfig.canSubmitRecipeEmails.includes(userInfo.email);
     }
-    console.log('recipes: ', recipes);
     return (
       <div id="app_base" className="cookApp_Home_Page">
         <div id="app_base_left_panel" className="container bp3-card cookApp_row_left">

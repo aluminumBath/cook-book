@@ -9,14 +9,19 @@ import './login.scss';
 class Login extends Component {
   render() {
     const { userInfo } = this.props;
+    console.log('userInfo:', userInfo);
+    const displayName = userInfo && userInfo.firstName && userInfo.firstName !== "" ?
+      userInfo.firstName : userInfo && userInfo.email && userInfo.email !== "" ?
+        userInfo.email : "Dev User";
+
     return (
       <div className="cookApp_Login"> {/*eslint-disable-next-line*/}
-        {!userInfo || !userInfo.email || userInfo.email === '' || !userInfo.email_verified && <Button className="login_button" text="Log in" icon="user" />}
-        {userInfo && userInfo.email && userInfo.email !== '' && userInfo.email_verified &&
+        {!userInfo || !userInfo.email &&
+        <Button className="login_button" text="Log in" icon="user" />}
         <>
-          <div className="welcome">Welcome {userInfo.email}</div>
-          <AmplifySignOut className="amplify-signin"/>
-        </>}
+          <div className="welcome">Welcome {displayName}</div>
+          {userInfo && userInfo.email && userInfo.email !== '' && userInfo.email_verified &&<AmplifySignOut className="amplify-signin"/>}
+        </>
       </div>
     );
   }

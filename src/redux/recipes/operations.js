@@ -2,7 +2,6 @@ import { toast } from 'react-toastify';
 import * as actions from './actions';
 import * as recipeApi from '../../api/elasticsearch';
 import * as elasticsearchOperations from '../elasticsearch/operations';
-import externalConfig from '../../externalConfig';
 
 export function setRecipes(newArray) {
   return actions.setRecipes(newArray);

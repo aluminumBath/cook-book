@@ -8,19 +8,17 @@ export function getUser() {
     try {
       dispatch(actions.loginRequest());
       const attributes = (await Auth.currentSession()).getIdToken().payload;
-      console.log('attributes: ', attributes);
-      console.log('attributes: ', attributes.email);
-      console.log('users[email]: ', users[email]);
       const email = attributes.email;
+      console.log('users[email]: ', users[email]);
       var userObj = {
+        "test": "123",
         ...attributes,
-
+        ...users[email]
       };
-        dispatch(actions.setUser(userObj));
-//      dispatch(actions.setUser(attributes));
+      dispatch(actions.setUser(userObj));
       return dispatch(actions.loginSuccess(attributes));
     } catch (error) {
-      console.log('getUser error signing up:', error.email);
+      console.log('getUser error signing up:', error.message);
       return dispatch(actions.loginError(error));
     }
   };

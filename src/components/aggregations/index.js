@@ -28,13 +28,9 @@ class Aggregations extends Component {
 
   render() {
     const { aggregations, keyProp, keyDisplay } = this.props;
-    console.log("aggregations: ", aggregations);
-    console.log("keyProp: ", keyProp);
-    console.log("keyDisplay: ", keyDisplay);
     var bucks = aggregations && aggregations.results && aggregations.results.aggregations &&
      aggregations.results.aggregations[keyDisplay] && aggregations.results.aggregations[keyDisplay].buckets ?
      aggregations.results.aggregations[keyDisplay].buckets : [];
-    console.log("bucks: ", bucks);
     return (
       <div className={`bp3-card cookApp_Aggregations ${keyProp}`}>
         <h3>{keyDisplay}</h3>

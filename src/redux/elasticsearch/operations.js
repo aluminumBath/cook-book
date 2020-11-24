@@ -7,8 +7,7 @@ export function getAggregations(key, displayName) {
     dispatch(actions.getAggregationsRequest(key));
     try {
       const results = elasticsearchApi.getAggregations(key, displayName);
-      console.log('results: ', results);
-      if (results.status == 200) {
+      if (results.status === 200) {
         dispatch(actions.setAggregations(results.response, key));
         return dispatch(actions.getAggregationsSuccess('implement', key));
       }
