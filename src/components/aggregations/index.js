@@ -28,16 +28,22 @@ class Aggregations extends Component {
 
   render() {
     const { aggregations, keyProp, keyDisplay } = this.props;
+    console.log("aggregations: ", aggregations);
+    console.log("keyProp: ", keyProp);
+    console.log("keyDisplay: ", keyDisplay);
+    var bucks = aggregations && aggregations.results && aggregations.results.aggregations &&
+     aggregations.results.aggregations[keyDisplay] && aggregations.results.aggregations[keyDisplay].buckets ?
+     aggregations.results.aggregations[keyDisplay].buckets : [];
+    console.log("bucks: ", bucks);
     return (
       <div className={`bp3-card cookApp_Aggregations ${keyProp}`}>
         <h3>{keyDisplay}</h3>
         <div className="aggregations">
           {/*eslint-disable-next-line*/}
-          {!aggregations || !aggregations.results || !aggregations.results.buckets || aggregations.results.buckets.length < 1 &&
+          {bucks.length < 1 &&
             <div className="message">No recipes found.</div>
           }
-          {aggregations && aggregations.results && aggregations.results.buckets && aggregations.results.buckets.length > 0 &&
-            aggregations.results.buckets.map(tag => {
+          {bucks.map(tag => {
               return (
                 <Tag key={tag.key} style={{backgroundColor: '#' + this.convertToHex(tag.key)}} onClick={() => this.updateSearchVal(tag.key)}>
                   {tag.key}: {tag.doc_count}

@@ -4,8 +4,15 @@ import * as recipeOperations from '../../redux/recipes/operations';
 
 export function getAggregations(key, displayName) {
   return async (dispatch, getState) => {
+    dispatch(actions.getAggregationsRequest(key));
     try {
-      return dispatch(actions.getAggregationsFailure('implement', key));
+      const results = elasticsearchApi.getAggregations(key, displayName);
+      console.log('results: ', results);
+      if (results.status == 200) {
+        dispatch(actions.setAggregations(results.response, key));
+        return dispatch(actions.getAggregationsSuccess('implement', key));
+      }
+      return dispatch(actions.getAggregationsFailure(results, key));
     } catch (err) {
       return dispatch(actions.getAggregationsFailure(err, key));
     }

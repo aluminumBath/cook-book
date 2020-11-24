@@ -88,14 +88,21 @@ export async function getRecipes(q, from = 0, size = externalConfig.pageSize) {
 
 export function getAggregations(key, displayName) {
   const buckets = [];
+  console.log("key: ", key);
+  console.log("displayName: ", displayName);
   for(var tag in Object.keys(tags)) {
     tag = Object.keys(tags)[tag];
+    const tagObj = tags[tag];
     console.log("tag: ", tag);
-    const num = tags[tag].length;
-    buckets.push({
-      key: tag,
-      doc_count: num
-    });
+    console.log("tagObj: ", tagObj);
+    if(key === tagObj.key) {
+      const num = tagObj.recipes.length;
+      console.log("num: ", num);
+      buckets.push({
+        key: tag,
+        doc_count: num
+      });
+    }
   }
 
   return {
