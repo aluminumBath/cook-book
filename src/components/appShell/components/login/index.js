@@ -13,7 +13,6 @@ class Login extends Component {
     const displayName = userInfo && userInfo.firstName && userInfo.firstName !== "" ?
       userInfo.firstName : userInfo && userInfo.email && userInfo.email !== "" ?
         userInfo.email : "Dev User";
-
     return (
       <div className="cookApp_Login"> {/*eslint-disable-next-line*/}
         {!userInfo || !userInfo.email &&

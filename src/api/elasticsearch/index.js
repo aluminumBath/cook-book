@@ -2,6 +2,7 @@ import externalConfig from '../../externalConfig';
 import recipes from '../../recipes.json';
 import tags from '../../tags.json';
 import users from '../../users.json';
+import FuzzySet from 'fuzzyset.js';
 
 //const aggsQuery = (key, displayName) => {
 // const obj = {
@@ -37,18 +38,25 @@ export async function queryEs(qVal, pageSize) {
       response: recipes
     };
   }
+  const recIds = [];
   const searchForTheseTags = qVal.split();
   for(var searchTag in searchForTheseTags) {
     searchTag = searchForTheseTags[searchTag];
     const origTag = Object.assign(searchTag, "");
     searchTag = origTag.toLowerCase();
-    if (Object.keys(tags).map(s => s.toLowerCase()).includes(searchTag)) {
-      const loc = Object.keys(tags).map(s => s.toLowerCase()).indexOf(searchTag);
-      const recordsIds = tags[Object.keys(tags)[loc]].recipes;
-      for (var id in recordsIds) {
-        id = recordsIds[id].toString();
-        if (Object.keys(recipes).includes(id)) {
-          hits.push(recipes[id]);
+    const fs = FuzzySet(Object.keys(tags).map(s => s.toLowerCase())); // add fuzzy searching
+    const res = fs.get(searchTag);
+    for (var r in res) {
+      r = res[r][1]
+      if (Object.keys(tags).map(s => s.toLowerCase()).includes(r)) {
+        const loc = Object.keys(tags).map(s => s.toLowerCase()).indexOf(r);
+        const recordsIds = tags[Object.keys(tags)[loc]].recipes;
+        for (var id in recordsIds) {
+          id = recordsIds[id].toString();
+          if (Object.keys(recipes).includes(id) && !recIds.includes(id)) {
+            hits.push(recipes[id]);
+            recIds.push(id);
+          }
         }
       }
     }
