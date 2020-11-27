@@ -10,7 +10,7 @@ class Login extends Component {
   render() {
     const { userInfo } = this.props;
     console.log('userInfo:', userInfo);
-    const displayName = userInfo && userInfo.firstName && userInfo.firstName !== "" ?
+    const displayName = userInfo && userInfo.userName && userInfo.userName !== "" ? userInfo.userName : userInfo && userInfo.firstName && userInfo.firstName !== "" ?
       userInfo.firstName : userInfo && userInfo.email && userInfo.email !== "" ?
         userInfo.email : "Dev User";
     return (
