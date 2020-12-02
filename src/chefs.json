@@ -1,0 +1,14 @@
+{
+  "1": {
+    "_id": "1",
+    "author": "Jean Rhodes",
+    "recipeIds": ["4","6"],
+    "badges": ["ALPHA","TJ"]
+  },
+  "2": {
+    "_id": "2",
+    "author": "Elaine Sims",
+    "recipeIds": ["4","6"],
+    "badges": []
+  }
+}

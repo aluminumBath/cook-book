@@ -37,14 +37,14 @@ class RecipeStage extends Component {
         {!showAll && recipes.map((r, index) => {
           if (index === currentRecipeIndex-1 || index === currentRecipeIndex || index === currentRecipeIndex+1) {
             return (
-              <RecipeCardFull key={r._id} recipe={r} currentRecipeIndex={currentRecipeIndex} />
+              <RecipeCardFull key={`short-${r._id}`} recipe={r} currentRecipeIndex={currentRecipeIndex} />
             )
           }
           return null;
         })}
         {showAll && recipes.map((r, index) => {
           return (
-            <RecipeCardFull showAllDetails={true} key={r._id} recipe={r} currentRecipeIndex={currentRecipeIndex} />
+            <RecipeCardFull showAllDetails={true} key={`full-${r._id}`} recipe={r} currentRecipeIndex={currentRecipeIndex} />
           )
         })}
         {currentRecipeIndex !== recipes.length-1 && recipes.length > 2 && !showAll &&

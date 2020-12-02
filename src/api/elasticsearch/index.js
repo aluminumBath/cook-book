@@ -2,33 +2,8 @@ import externalConfig from '../../externalConfig';
 import recipes from '../../recipes.json';
 import tags from '../../tags.json';
 import users from '../../users.json';
+import chefs from '../../chefs.json';
 import FuzzySet from 'fuzzyset.js';
-
-//const aggsQuery = (key, displayName) => {
-// const obj = {
-//   aggs: {}
-// };
-// obj.aggs[displayName] = {
-//   terms: {
-//     field: key,
-//     size: 50
-//   }
-// };
-// return obj;
-//};
-
-//const queryStringQuery = (qVal) => {
-//  if (!qVal || qVal === '') {
-//    return null;
-//  }
-//  return {
-//    query: {
-//      query_string: {
-//        query: qVal
-//      }
-//    }
-//  };
-//}
 
 export async function queryEs(qVal, pageSize) {
   const hits = [];
@@ -44,8 +19,8 @@ export async function queryEs(qVal, pageSize) {
     searchTag = searchForTheseTags[searchTag];
     const origTag = Object.assign(searchTag, "");
     searchTag = origTag.toLowerCase();
-    const fs = FuzzySet(Object.keys(tags).map(s => s.toLowerCase())); // add fuzzy searching
-    const res = fs.get(searchTag);
+    const fso = FuzzySet(Object.keys(tags).map(s => s.toLowerCase())); // add fuzzy searching
+    const res = fso.get(searchTag);
     for (var r in res) {
       r = res[r][1]
       if (Object.keys(tags).map(s => s.toLowerCase()).includes(r)) {
@@ -119,12 +94,20 @@ export function getAggregations(key, displayName) {
 }
 
 export async function submitRecipe(newRecipe) {
+
+   var resId = '';
+   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+   for ( var i = 0; i < 9; i++ ) {
+      resId += characters.charAt(Math.floor(Math.random() * characters.length));
+   }
   let newRecipes = await recipes;
-  newRecipes.concat(newRecipe);
-  recipes = newRecipes
+  console.log('newRecipe: ', newRecipe);
+  newRecipes[resId] = newRecipe;
+  console.log('newRecipes: ', JSON.stringify(newRecipes));
+
   return {
     status: 200,
-    response: recipes
+    response: newRecipes
   };
 }
 
@@ -140,6 +123,13 @@ export async function getUser(id, userObj) {
   return {
     status: 200,
     response: await users[id]
+  }
+}
+
+export async function getAuthors() {
+  return {
+    status: 200,
+    response: await chefs
   }
 }
 

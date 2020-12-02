@@ -73,8 +73,8 @@ class RecipeCardFull extends Component {
             </h5>
             {authorArr && authorArr.length > 0 && authorArr.map(a => {
               return (
-                <Tag className="tag" key={a}>
-                  {a}
+                <Tag className="tag" key={a.label || a}>
+                  {a.label || a}
                 </Tag>
               )
             })/* eslint-disable-next-line*/}
@@ -85,8 +85,8 @@ class RecipeCardFull extends Component {
           {showMore && tagsArr && tagsArr.length > 0 && <div className="bp3-card tags">
             {tagsArr.map(t => {
               return (
-                <Tag className="tag" key={t} style={{backgroundColor: '#' + this.convertToHex(t)}}>
-                  {t}
+                <Tag className="tag" key={t.value || t} style={{backgroundColor: '#' + this.convertToHex(t.label || t)}}>
+                  {t.label || t}
                 </Tag>
               )
             })}

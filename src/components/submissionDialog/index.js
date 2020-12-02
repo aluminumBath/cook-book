@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, Dialog, Tag } from "@blueprintjs/core";
 import { recipesOperations } from '../../redux/recipes';
+import Select from 'react-select';
 
 import './submissionDialog.scss';
 
@@ -254,9 +255,14 @@ class SubmissionDialog extends Component {
   }
 
   render() {
-    const { isOpen, closeSubmissionDialog } = this.props;
+    const { isOpen, closeSubmissionDialog, authors, tagsList } = this.props;
     const { title, ingredients, instructions, notes, tags, author, picture, newIngredientObj, newInstruction, newTag, newNote, newAuthor } = this.state;
     const canSubmit = this.canSubmit();
+    const currTagKeys = tags.map(t => t.value);
+    const currAuthorKeys = tags.map(t => t.value);
+    const tagOptions = tagsList.filter(t => !currTagKeys.includes(t.value));
+    const authOptions = authors.filter(a => !currAuthorKeys.includes(a.value));
+
     return (
       <Dialog
         className="submission_dialog"
@@ -404,8 +410,8 @@ class SubmissionDialog extends Component {
             {tags && tags.length > 0 && <div className="bp3-card tags">
               {tags.map((t, index) => {
                 return (
-                  <Tag className="tag" key={t} style={{backgroundColor: '#' + this.convertToHex(t)}} onRemove={() => this.removeTag(index)}>
-                    {t}
+                  <Tag className="tag" key={t.value} style={{backgroundColor: '#' + this.convertToHex(t.label)}}  onRemove={() => this.removeTag(index)}>
+                    {t.label}
                   </Tag>
                 )
               })}
@@ -417,14 +423,9 @@ class SubmissionDialog extends Component {
               <div className="new-tag">
                 <div className="tag subsection">
                   <div className="label">
-                    Tag
+                    New Tag
                   </div>
-                  <input
-                    className="value title-input bp3-input"
-                    value={newTag || ''}
-                    onChange={e => this.updateValue('newTag', e.target.value)}
-                    placeholder="Tag..."
-                  />
+                  <Select options={tagOptions} onChange={e => this.updateValue('newTag', e)} className="value tags-input" />
                 </div>
                 <div className="subsection">
                   <Button className="bp3-intent-warning" text="Cancel" onClick={() => this.cancelNewTag()} />
@@ -481,11 +482,11 @@ class SubmissionDialog extends Component {
             {author && author.length > 0 && <div className="bp3-card author">
               {author.map((a, index) => {
                 return (
-                  <li className="author" key={a}>
+                  <li className="author" key={a.value}>
                     <div className="ingr-group">
                       <Button icon="trash" className="delete-button bp3-intent-error" onClick={() => this.removeAuthor(index)} />
                       <div className="step">
-                        - {a}
+                        - {a.label}
                       </div>
                     </div>
                   </li>
@@ -499,14 +500,9 @@ class SubmissionDialog extends Component {
               <div className="new-author">
                 <div className="author subsection">
                   <div className="label">
-                    Author
+                    New Author
                   </div>
-                  <input
-                    className="value title-input bp3-input"
-                    value={newAuthor || ''}
-                    onChange={e => this.updateValue('newAuthor', e.target.value)}
-                    placeholder="Author..."
-                  />
+                  <Select options={authOptions} onChange={e => this.updateValue('newAuthor', e)} />
                 </div>
                 <div className="subsection">
                   <Button className="bp3-intent-warning" text="Cancel" onClick={() => this.cancelNewAuthor()} />
@@ -531,7 +527,21 @@ SubmissionDialog.propTypes = {
 };
 
 function mapStateToProps(state, props) {
-  return {};
+  const { recipes, elasticsearch } = state;
+  var tagsList = [];
+  if (elasticsearch && elasticsearch.aggregationResults && elasticsearch.aggregationResults.tags &&
+    elasticsearch.aggregationResults.tags.results && elasticsearch.aggregationResults.tags.results.aggregations &&
+    elasticsearch.aggregationResults.tags.results.aggregations.Tags && elasticsearch.aggregationResults.tags.results.aggregations.Tags.buckets) {
+      tagsList = Object.values(elasticsearch.aggregationResults.tags.results.aggregations.Tags.buckets).map((t, index) => {
+        return { value: index, label: t.key }
+      })
+    }
+  return {
+    authors: recipes.authors.map(a => {
+      return { value: a._id, label: a.author }
+    }),
+    tagsList
+  };
 }
 
 export default withRouter(connect(mapStateToProps)(SubmissionDialog));

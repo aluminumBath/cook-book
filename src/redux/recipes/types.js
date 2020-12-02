@@ -1,6 +1,7 @@
 export const RECIPES_REQUEST = 'app/recipes/RECIPES_REQUEST';
 export const RECIPES_SUCCESS = 'app/recipes/RECIPES_SUCCESS';
 export const RECIPES_FAILURE = 'app/recipes/RECIPES_FAILURE';
+export const SET_AUTHORS = 'app/recipes/SET_AUTHORS';
 export const SET_RECIPES = 'app/recipes/SET_RECIPES';
 export const SET_SPEC_RECIPE = 'app/recipes/SET_SPEC_RECIPE';
 export const CLEAR_SPEC_RECIPE = 'app/recipes/CLEAR_SPEC_RECIPE';

@@ -24,6 +24,7 @@ export function searchES(newVal) {
     try {
       dispatch(actions.getElasticsearchQueryRequest());
       const elasticsearchResp = await elasticsearchApi.queryEs(newVal, state.elasticsearch.pageSize);
+      const authorsResponse = await elasticsearchApi.getAuthors();
       if (elasticsearchResp.status !== 200) {
         return dispatch(actions.getElasticsearchQueryFailure(elasticsearchResp.error));
       } else {
@@ -35,6 +36,11 @@ export function searchES(newVal) {
         const aggregationsArray = respBody.aggregations;
         dispatch(recipeOperations.setCurrPageIndex(0));
         dispatch(recipeOperations.setTotalRecipesLength(total));
+        if (authorsResponse.status === 200) {
+          let authBody = authorsResponse.response;
+          let authorsArray = Object.keys(authBody).map(k => authBody[k]);
+          dispatch(recipeOperations.setAuthors(authorsArray));
+        }
         dispatch(recipeOperations.setRecipes(recipesArray));
         dispatch(recipeOperations.setAggregations(aggregationsArray));
         return dispatch(actions.getElasticsearchQuerySuccess(recipesArray));

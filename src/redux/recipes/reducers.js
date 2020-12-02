@@ -1,6 +1,7 @@
 import * as types from './types';
 
 const defaultState = {
+  authors: [],
   recipes: [],
   aggregations: {},
   loading: false,
@@ -17,6 +18,12 @@ const recipesReducer = (state = defaultState, action) => {
       return {
         ...state,
         aggregations: action.newObject,
+      };
+    }
+    case types.SET_AUTHORS: {
+      return {
+        ...state,
+        authors: action.newArray,
       };
     }
     case types.SET_RECIPES: {
